@@ -2,6 +2,7 @@ namespace DesafioProjetoHospedagem.Models
 {
     public class Reserva
     {
+        public int capacidadeTotal;
         public List<Pessoa> Hospedes { get; set; }
         public Suite Suite { get; set; }
         public int DiasReservados { get; set; }
@@ -14,44 +15,50 @@ namespace DesafioProjetoHospedagem.Models
         }
 
         public void CadastrarHospedes(List<Pessoa> hospedes)
-        {
-            // TODO: Verificar se a capacidade é maior ou igual ao número de hóspedes sendo recebido
-            // *IMPLEMENTE AQUI*
-            if (true)
+        {    
+   
+            var capacidade = false;
+           if(capacidadeTotal >= hospedes.Count) capacidade = true;
+            if (capacidade)
             {
                 Hospedes = hospedes;
+                var teste = Suite;
             }
             else
             {
-                // TODO: Retornar uma exception caso a capacidade seja menor que o número de hóspedes recebido
-                // *IMPLEMENTE AQUI*
+                new Exception("capacidade maio que permnitido");
             }
         }
 
         public void CadastrarSuite(Suite suite)
         {
             Suite = suite;
+            capacidadeTotal = suite.Capacidade;
         }
 
         public int ObterQuantidadeHospedes()
         {
-            // TODO: Retorna a quantidade de hóspedes (propriedade Hospedes)
-            // *IMPLEMENTE AQUI*
+            if(capacidadeTotal > 0){
+                return capacidadeTotal;
+            }
             return 0;
         }
 
         public decimal CalcularValorDiaria()
         {
-            // TODO: Retorna o valor da diária
-            // Cálculo: DiasReservados X Suite.ValorDiaria
-            // *IMPLEMENTE AQUI*
+
             decimal valor = 0;
+            valor = DiasReservados * Suite.ValorDiaria;
 
             // Regra: Caso os dias reservados forem maior ou igual a 10, conceder um desconto de 10%
             // *IMPLEMENTE AQUI*
-            if (true)
+            bool temDesconto = false;
+            if(DiasReservados>= 10) temDesconto = true;
+            
+            if (temDesconto)
             {
-                valor = 0;
+
+                valor = valor - (valor/10);
             }
 
             return valor;
